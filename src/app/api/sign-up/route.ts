@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import User from "@/model/user.model";
 import bcrypt from "bcrypt";
 import { ApiResponse } from "@/utils/ApiResponse";
-import { sendVerificationCodeEmail } from "@/utils/sendVerificationEmail";
+import { sendVerificationOtpEmail } from "@/utils/sendVerificationOtpEmail";
 import { UserSchemaValidation } from "../../zod/user.zod.ts";
 import { dbConnect } from "@/db/index";
 
@@ -68,7 +68,7 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     // Send verification email
-    const isEmailSent = await sendVerificationCodeEmail(
+    const isEmailSent = await sendVerificationOtpEmail(
       username,
       email,
       verificationOtp,

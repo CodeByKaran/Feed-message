@@ -6,11 +6,13 @@ import {Button} from "@/components/ui/button"
 
 
 
+
 const PublicUrl = () => {
    const { data: session } = useSession();
    const [copied, setCopied] = useState(false);
+
    
-   const siteUrl = `${window.location.protocol}//${window.location.host}/feed/${session?session?.user?.username:"..."}`;
+   const siteUrl = `http://localhost:3000/feed/${session?session?.user?.username:"..."}`;
  
 
    const handleCopy = () => {

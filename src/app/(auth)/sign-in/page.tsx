@@ -37,7 +37,7 @@ function SignIn() {
   // Submit handler for the form
   async function onSubmit(values: z.infer<typeof UserSignInValidation>) {
     setIsSubmitting(true);
-    console.log(values)
+    
    try {
       const result = await signIn("credentials", {
          redirect:false,

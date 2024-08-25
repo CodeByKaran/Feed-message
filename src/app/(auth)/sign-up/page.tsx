@@ -49,7 +49,6 @@ function SignUp() {
   try {
     setIsSubmitting(true);
     const res = await axios.post("/api/sign-up", values);
-    console.log(res);
 
     if (res.data.success) {
       toast({

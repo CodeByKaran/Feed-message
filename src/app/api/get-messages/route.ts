@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../[...nextauth]/options.ts"; 
+import { authOptions } from "../auth/[...nextauth]/options.ts";
 import { ApiResponse } from "@/types/ApiResponse";
 import { Request } from "next/request";
 import { dbConnect } from "@/db/index";
@@ -10,10 +10,7 @@ export async function GET(request: Request) {
   await dbConnect();
 
   try {
-    // Get the session, which contains the authenticated user's information
     const session = await getServerSession(authOptions);
-    
-    console.log(session)
     
     if (!session) {
       const response: ApiResponse = {
@@ -23,11 +20,10 @@ export async function GET(request: Request) {
       return new Response(JSON.stringify(response), { status: 401 });
     }
 
-    // Extract the user ID from the session
-    const userId = session.user?.id;
-
-    // Fetch all messages sent to the logged-in user
-    const messages = await Message.find({ to: userId }).exec();
+    const userId = new mongoose.Types.ObjectId(session.user?._id);
+    
+    
+    const messages = await Message.find({ to: userId });
 
     const response: ApiResponse = {
       success: true,

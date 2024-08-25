@@ -10,34 +10,20 @@ export async function POST(request: Request) {
   await dbConnect();
 
   try {
-    const { username, content } = await request.json();
+     const body = await request.json()
+    
+    const parsedData = MessageSchemaValidation.safeParse(body);
 
-    if (!username) {
+    if (!parsedData.success) {
       const response: ApiResponse = {
         success: false,
-        message: "Username is required.",
-      };
-      return new Response(JSON.stringify(response), { status: 400 });
-    }
-
-    if (!content) {
-      const response: ApiResponse = {
-        success: false,
-        message: "Message content is required.",
-      };
-      return new Response(JSON.stringify(response), { status: 400 });
-    }
-
-    const parsedContent = MessageSchemaValidation.safeParse({ content });
-
-    if (!parsedContent.success) {
-      const response: ApiResponse = {
-        success: false,
-        message: parsedContent.error.errors[0].message,
+        message: parsedData.error.errors[0].message,
       };
       return new Response(JSON.stringify(response), { status: 422 });
     }
 
+    const { username,title,content} = parsedData.data;
+   
     const user = await User.findOne({ username });
 
     if (!user) {
@@ -58,7 +44,8 @@ export async function POST(request: Request) {
 
     const message = new Message({
       to: user._id,
-      content: parsedContent.data.content,
+      title:title,
+      content: content,
     });
 
     await message.save();

@@ -14,6 +14,11 @@ const messageSchema: Schema<MessageModel> = new Schema(
       ref: "User",
       required: [true, 'Recipient is required'], // Added required validation for 'to'
     },
+    title: {
+      type: String,
+      required: [true, 'title is required'],
+      trim: true,
+    },
     content: {
       type: String,
       required: [true, 'Content is required'],

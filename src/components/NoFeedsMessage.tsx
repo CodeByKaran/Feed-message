@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import EmptyFeed from "../assets/emptyFeed.svg"
+import EmptyFeed from "../../public/emptyFeed.svg"
 import Image from "next/image"
 
 const NoFeedsMessage = () => {

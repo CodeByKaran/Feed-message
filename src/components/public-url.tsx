@@ -5,11 +5,13 @@ import { Check, Clipboard } from 'lucide-react';
 import {Button} from "@/components/ui/button"
 
 
+
 const PublicUrl = () => {
    const { data: session } = useSession();
    const [copied, setCopied] = useState(false);
-
-   const siteUrl = `${window.location.protocol}//${window.location.host}/feed/${session?.user?.username}`;
+   
+   const siteUrl = `${window.location.protocol}//${window.location.host}/feed/${session?session?.user?.username:"..."}`;
+ 
 
    const handleCopy = () => {
       navigator.clipboard.writeText(siteUrl);

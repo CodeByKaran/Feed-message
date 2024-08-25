@@ -19,11 +19,9 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import axios from "axios";
-import {useRouter} from "next/navigation"
-import { toast } from "@/components/ui/use-toast"
-import {Loader2} from "lucide-react"
-
-
+import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -31,7 +29,7 @@ function SignUp() {
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const debounced = useDebounceCallback(setUsername, 500);
-  const router = useRouter()
+  const router = useRouter();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof UserSchemaValidation>>({
@@ -45,37 +43,36 @@ function SignUp() {
   });
 
   // 2. Define a submit handler.
- async function onSubmit(values: z.infer<typeof UserSchemaValidation>) {
-  try {
-    setIsSubmitting(true);
-    const res = await axios.post("/api/sign-up", values);
+  async function onSubmit(values: z.infer<typeof UserSchemaValidation>) {
+    try {
+      setIsSubmitting(true);
+      const res = await axios.post("/api/sign-up", values);
 
-    if (res.data.success) {
-      toast({
-        title: "Success",
-        description: res.data?.message,
-      });
-      router.replace(`/verify/${values.username}`);
-      setUsernameResMessage("");
-      setUsername("");
-    } else {
+      if (res.data.success) {
+        toast({
+          title: "Success",
+          description: res.data?.message
+        });
+        router.replace(`/verify/${values.username}`);
+        setUsernameResMessage("");
+        setUsername("");
+      } else {
+        toast({
+          title: "Failure",
+          description: res.data?.message,
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
       toast({
         title: "Failure",
-        description: res.data?.message,
-        variant:"destructive"
+        description: error.response?.data?.message || "An error occurred.",
+        variant: "destructive"
       });
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    toast({
-      title: "Failure",
-      description: error.response?.data?.message || "An error occurred.",
-      variant:"destructive"
-    });
-  } finally {
-    setIsSubmitting(false);
   }
-}
-
 
   useEffect(() => {
     const checkUsername = async () => {
@@ -103,12 +100,14 @@ function SignUp() {
   return (
     <div className="w-full flex items-center justify-center min-h-screen my-3">
       <div className="w-[90%] sm:w-[90%] md:w-[75%] h-fit p-6 mx-auto border border-gray-500/30 rounded-2xl shadow-lg ">
-      <div className="w-full text-center mb-9">
-        <h1 className="font-extrabold text-4xl lg:text-5xl text-center tracking-tighter">
+        <div className="w-full text-center mb-9">
+          <h1 className="font-extrabold text-4xl lg:text-5xl text-center tracking-tighter">
             Feed Message
-        </h1>
-        <p className="text-base mt-1 ">Create a account to statrt journey of feeds.</p>
-       </div>
+          </h1>
+          <p className="text-base mt-1 ">
+            Create a account to statrt journey of feeds.
+          </p>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -142,9 +141,14 @@ function SignUp() {
                     />
                   </FormControl>
                   <p
-                    className={`text-sm ${usernameResMessage==="Username is unique"?"text-green-500":"text-red-500"}`}
+                    className={`text-sm ${
+                      usernameResMessage === "Username is unique"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
                   >
-                    {" "}                    {usernameResMessage}
+                    {" "}
+                    {usernameResMessage}
                   </p>
                   <FormDescription>
                     This is your public display name
@@ -171,25 +175,6 @@ function SignUp() {
             />
             <FormField
               control={form.control}
-              name="avatar"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Avatar</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      accept="image/*"
-                      placeholder="avatar"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>Optional</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
@@ -203,12 +188,16 @@ function SignUp() {
               )}
             />
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ?(<>
-              <span className="flex justify-around items-center">
-               <Loader2 className="w-4 h-4 animate-spin mr-2"/>
-              please wait...
-             </span>
-              </>): "Sign Up"}
+              {isSubmitting ? (
+                <>
+                  <span className="flex justify-around items-center">
+                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                    please wait...
+                  </span>
+                </>
+              ) : (
+                "Sign Up"
+              )}
             </Button>
           </form>
         </Form>

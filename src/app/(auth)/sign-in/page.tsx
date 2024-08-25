@@ -56,7 +56,7 @@ function SignIn() {
         });
         router.replace("/dashboard");
       }
-    } catch (e) {
+    } catch (e:any) {
       toast({
         title: "Failure",
         description: "Something went wrong",

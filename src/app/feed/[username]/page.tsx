@@ -45,7 +45,7 @@ export default function UserFeedPage() {
          title:"success",
          description:res.data.message
       })
-     }catch(error){
+     }catch(error:any){
         console.error("Error submitting feedback:", error);
         toast({
          title:"failure",

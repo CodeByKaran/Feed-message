@@ -63,7 +63,7 @@ function SignUp() {
           variant: "destructive"
         });
       }
-    } catch (error) {
+    } catch (error:any) {
       toast({
         title: "Failure",
         description: error.response?.data?.message || "An error occurred.",

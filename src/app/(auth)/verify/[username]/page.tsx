@@ -29,7 +29,7 @@ const FormSchema = z.object({
   otp: verificationOtpSchemaValidation
 });
 
-export function Verify() {
+function Verify() {
   const router = useRouter();
   const { username } = useParams();
   const [loading, setLoading] = useState(false); // Add loading state
@@ -54,22 +54,19 @@ export function Verify() {
         toast({
           title: "Success",
           description: "OTP verified successfully!",
-          status: "success"
         });
         router.replace("/sign-in");
       } else {
         toast({
           title: "Error",
           description: response.data.message || "An error occurred.",
-          status: "error"
         });
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error("Verification error:", error);
       toast({
         title: "Error",
         description: "Failed to verify. Please try again.",
-        status: "error"
       });
     } finally {
       setLoading(false); // End loading

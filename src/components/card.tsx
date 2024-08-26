@@ -19,7 +19,7 @@ interface FeedBoxProps {
   title: string;
   content: string;
   updatedAt: string;
-  onRemove: (id:String) => void;
+  onRemove: (id:string) => void;
   id:string;
 }
 

@@ -125,7 +125,7 @@ const Page: React.FC = () => {
               title={feed.title}
               content={feed.content}
               updatedAt={feed.updatedAt}
-              onRemove={(id) => updateState(id)}
+              onRemove={(id:string) => updateState(id)}
             />
           ))
         )}

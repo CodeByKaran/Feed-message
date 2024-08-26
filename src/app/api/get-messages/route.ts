@@ -2,11 +2,10 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/options.ts";
 import { ApiResponse } from "@/types/ApiResponse";
-import { Request } from "next/request";
 import { dbConnect } from "@/db/index";
 import Message from "@/model/message.model";
 
-export async function GET(request: Request) {
+export async function GET() {
   await dbConnect();
 
   try {
@@ -32,7 +31,7 @@ export async function GET(request: Request) {
     };
     return new Response(JSON.stringify(response), { status: 200 });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in message retrieval route:", error);
 
     const response: ApiResponse = {

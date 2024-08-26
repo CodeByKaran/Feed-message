@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import User from "@/model/user.model";
 import bcrypt from "bcrypt";
 import { ApiResponse } from "@/utils/ApiResponse";

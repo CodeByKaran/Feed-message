@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+
 import User from "@/model/user.model";
 import { ApiResponse } from "@/types/ApiResponse";
 import { Request } from "next/request";
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       message: "Message sent successfully.",
     };
     return new Response(JSON.stringify(response), { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in message sending route:", error);
 
     const response: ApiResponse = {

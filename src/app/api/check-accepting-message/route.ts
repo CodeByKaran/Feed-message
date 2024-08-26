@@ -1,11 +1,11 @@
 import mongoose from "mongoose"
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]/options';
 import { dbConnect } from '@/db/index'; 
 import User from '@/model/user.model'; 
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   await dbConnect();
 
   try {
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
       { success: true, isAcceptingMessages: user.isAcceptingMessages },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in GET route:', error);
     return NextResponse.json(
       { success: false, message: 'An internal server error occurred. Please try again later.' },

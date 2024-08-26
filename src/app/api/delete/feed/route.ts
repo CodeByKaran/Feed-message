@@ -53,7 +53,7 @@ export async function DELETE(req: NextRequest) {
     };
     return NextResponse.json(response, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error in DELETE route:", error);
 
     const response: ApiResponse = {

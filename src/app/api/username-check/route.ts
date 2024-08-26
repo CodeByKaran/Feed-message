@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+
 import { ApiResponse } from "@/types/ApiResponse";
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/db/index";
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
       };
       return NextResponse.json(response, { status: 409 });
     }
-  } catch (err: any) {
+  } catch (err) {
     console.log("Error occurred during checking if username is unique", err);
     const response: ApiResponse = {
       success: false,

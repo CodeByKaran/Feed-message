@@ -36,7 +36,7 @@ export const authOptions = {
           }
 
           return user;
-        } catch (err: any) {
+        } catch (err) {
           console.error("Authorization error:", err);
           // Return null if there's an error to prevent malformed responses
           return null;

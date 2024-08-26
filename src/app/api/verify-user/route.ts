@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+
 import User from "@/model/user.model";
 import { ApiResponse } from "@/types/ApiResponse";
 import { Request } from "next/request";

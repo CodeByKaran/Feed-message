@@ -42,7 +42,7 @@ export async function PUT(req: NextRequest) {
       { success: true, message: 'Toggle status updated successfully.' },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in PUT route:', error);
     return NextResponse.json(
       { success: false, message: 'An internal server error occurred. Please try again later.' },
